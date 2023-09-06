@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'appunti/base.html' %}
+{% block title %}
+Home page
+{% endblock title %}
 
-</body>
-</html>
+{% block content %}
+    <h2> {{appunto.nome_appunto}}</h2>
+    <ul>
+        <li style="font-size: 20px">Autore: {{appunto.studente.nome}} {{appunto.studente.cognome}} </li>
+        <li style = "font-size: 20px">Voto: {{ appunto.voto }}</li>
+        <li style="font-size: 20px">Recenzioni: </li>
+
+        {% if recenzioni|length == 0 %}
+            <p style="font-size: 15px">     nessun recenzione adesso </p>
+        {% else %}
+            {% for recenzione in recenzioni %}
+                <li style="font-size: 12px">---fatta il <b> {{recenzione.data_recenzione}} </b> da <b>{{recenzione.studente.nome}} {{recenzione.studente.cognome}}</b></li>
+                <li style="font-size: 10px">------>{{ recenzione.testo_recenzione}} </li>
+            {% endfor %}
+        {% endif %}
+
+    </ul>
+    <p> per recenzionare l'appunto clicca qui <a href="#">[recenzioanare]</a></p>
+    <p> per votare l'appunto clicca qui <a href="#">[votare]</a></p>
+    <p> per scaricare l'appunto clicca qui <a href="#">[Download]</a></p>
+
+{% endblock content%}

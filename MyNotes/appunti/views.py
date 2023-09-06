@@ -25,7 +25,10 @@ def upload_appunto(request, materia_id):
     return HttpResponse('<h1> Pagina di upload dell appunto <h2>')
 
 def appunto_detail(request, materia_id,appunto_id):
-    return HttpResponse('<h1> i detagli del appunto si puo votare, fare il download, vedere le recenzione e votare, vedere il voto dell appunto')
+    appunto = Appunto.objects.get(id=appunto_id)
+    recenzioni= Recenzione.objects.filter(appunto_recenzionato = appunto_id)
+    context = {'appunto': appunto, 'recenzioni': recenzioni}
+    return render(request, 'appunti/appunto_detail.html', context)
 
 def appunto_detail_download(request):
     return HttpResponse('fare il download dell apppunto ')
