@@ -5,5 +5,13 @@
 
 {% block content %}
   <h1 style="text-align: center; font-size: 80px">{{ materia.nome }}</h1>
-
+  {% if appunti_materia_curr|length == 0 %}
+     <h1> non sono ancora stati pubblicati appunti per questa materia </h1>
+  {% else %}
+      <ul>
+          {% for appunto in appunti_materia_curr %}
+          <li style="font-size: 30px"> <a href="#"> {{ appunto.nome_appunto }} Di {{appunto.studente.nome}}_{{appunto.studente.cognome}}</a></li>
+          {% endfor %}
+      </ul>
+  {% endif %}
 {% endblock content%}

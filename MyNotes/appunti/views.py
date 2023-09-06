@@ -16,7 +16,8 @@ def materie_list(request):
 """ la via che ritorna una singola materia con la lista degli appunti essa associata"""
 def materia_detail(request, materia_id):
     materia = Materia.objects.get(id=materia_id)
-    context = {"materia": materia}
+    appunti_materia_curr = Appunto.objects.filter(materia_id = materia)
+    context = {"materia": materia, "appunti_materia_curr": appunti_materia_curr}
     return render(request, 'appunti/materia_detail.html', context)
 
 
