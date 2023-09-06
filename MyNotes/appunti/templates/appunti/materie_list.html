@@ -1,0 +1,15 @@
+{% extends 'appunti/base.html' %}
+{% block title %}
+    Lista delle Materie
+{% endblock title %}
+
+{% block content %}
+<h1> Lista delle Materie disponibili per il corso di laurea triennale in Ingegneria informatica </h1>
+<ul>
+    {% for materia in materie %}
+        <li>
+            <a href = "{% url 'materia-detail' materia.id %}">{{materia.nome}} </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock content%}

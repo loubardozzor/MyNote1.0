@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {%  endblock title %}</title>
+</head>
+<body >
+
+<!-- barra di Menu -->
+    <ul style="list-style: none">
+        <li style="display: inline-block; padding: 10px 20px">
+            <a href="{% url 'home' %} ">Home</a>
+        </li>
+
+        <li style="display: inline-block; padding: 10px 20px">
+            <a href="{% url 'materie-list' %}">Materie Disponibili</a>
+        </li>
+        <li style="display: inline-block; padding: 10px 20px">
+            <a href="">Studenti</a>
+        </li>
+
+            <li style="display: inline-block; padding: 10px 20px">
+            <a href= "#">Login</a>
+        </li>
+            <li style="display: inline-block; padding: 10px 20px">
+            <a href=#>Registrati</a>
+        </li>
+    </ul>
+    {% block content %} {% endblock content %}
+</body>
+</html>
