@@ -21,10 +21,10 @@ def materia_detail(request, materia_id):
     return render(request, 'appunti/materia_detail.html', context)
 
 
-def upload_appunto(request):
+def upload_appunto(request, materia_id):
     return HttpResponse('<h1> Pagina di upload dell appunto <h2>')
 
-def appunto_detail(request):
+def appunto_detail(request, materia_id,appunto_id):
     return HttpResponse('<h1> i detagli del appunto si puo votare, fare il download, vedere le recenzione e votare, vedere il voto dell appunto')
 
 def appunto_detail_download(request):

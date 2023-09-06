@@ -10,8 +10,10 @@
   {% else %}
       <ul>
           {% for appunto in appunti_materia_curr %}
-          <li style="font-size: 30px"> <a href="#"> {{ appunto.nome_appunto }} Di {{appunto.studente.nome}}_{{appunto.studente.cognome}}</a></li>
+          <li style="font-size: 30px"> <a href="{% url 'appunto-detail' materia.id appunto.id %}"> {{ appunto.nome_appunto }} Di {{appunto.studente.nome}}_{{appunto.studente.cognome}}</a></li>
           {% endfor %}
       </ul>
   {% endif %}
+  <p> </p>
+  <p> per caricare un appunto per questa materia clicca qui:<a href="{% url 'upload-appunto' materia.id %}">[Caricare Un Appunto] </a> </p>
 {% endblock content%}

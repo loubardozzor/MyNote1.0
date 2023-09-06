@@ -4,14 +4,23 @@ body{
     margin:0;
     font: 600 19px 'Source Sans Pro', sans-serif;
     letter-spacing: 0.64px;
-    color: aliceblue;
-    Background-color: #585d74;
+    color: #585d74;
+    background-color: #D3D3D3;
+}
+
+nav{
+    color: #87CEEB
 }
 
 a{
     text-decoration: none;
 }
 
+ul{
+    list-style:none;
+}
+
 a:hover{
     color : blue;
+
 }
