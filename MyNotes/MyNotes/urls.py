@@ -23,6 +23,8 @@ from appunti import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.home, name='home'),
+    path('successo_caricamento/', views.pagina_di_successo_caricamento, name='pagina_di_successo_caricamento'),
+    path('insuccesso_caricamento/', views.pagina_di_insuccesso_caricamento, name='pagina_di_insuccesso_caricamento'),
     path('materie/', views.materie_list, name='materie-list'),
     path('materie/<int:materia_id>/', views.materia_detail, name='materia-detail'),
     path('materie/<int:materia_id>/upload-appunto', views.upload_appunto, name='upload-appunto'),

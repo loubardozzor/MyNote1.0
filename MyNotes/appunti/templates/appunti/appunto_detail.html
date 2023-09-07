@@ -7,7 +7,8 @@ Home page
     <h2> {{appunto.nome_appunto}}</h2>
     <ul>
         <li style="font-size: 20px">Autore: {{appunto.studente.nome}} {{appunto.studente.cognome}} </li>
-        <li style = "font-size: 20px">Voto: {{ appunto.voto }}</li>
+        <li style = "font-size: 20px">Voto: {{ appunto.voto }} </li>
+        <li style = "font-size: 20px">Numero_scaricamento: {{ appunto.Num_scaricamento }} </li>
         <li style="font-size: 20px">Recenzioni: </li>
 
         {% if recenzioni|length == 0 %}
