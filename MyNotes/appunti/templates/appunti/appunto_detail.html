@@ -22,6 +22,6 @@ Home page
     </ul>
     <p> per recenzionare l'appunto clicca qui <a href="#">[recenzioanare]</a></p>
     <p> per votare l'appunto clicca qui <a href="#">[votare]</a></p>
-    <p> per scaricare l'appunto clicca qui <a href="#">[Download]</a></p>
+    <p> per scaricare l'appunto clicca qui <a href="{% url   'appunto-detail-download' materia_id appunto.id %}">[Download_doc_pdf]</a></p>
 
 {% endblock content%}

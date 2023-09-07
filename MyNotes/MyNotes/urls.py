@@ -27,7 +27,7 @@ urlpatterns = [
     path('materie/<int:materia_id>/', views.materia_detail, name='materia-detail'),
     path('materie/<int:materia_id>/upload-appunto', views.upload_appunto, name='upload-appunto'),
     path('materia/<int:materia_id>/<int:appunto_id>/', views.appunto_detail, name='appunto-detail'),
-    path('materia/<int:materia_id>/<int:appunto_id>/download/', views.appunto_detail_download, name='apppunto-detail-download' ),
+    path('materia/<int:materia_id>/<int:appunto_id>/download/', views.appunto_detail_download, name='appunto-detail-download' ),
     path('materia/<int:materia_id>/<int:appunto_id>/recenzionare', views.appunto_detail_recenzionare, name='appunto-detail-recenzionare'),
     path('materia/<int:materia_id>/<int:appunto_id>/votare', views.appunto_detail_votare, name='appunto-detail-votare')
 

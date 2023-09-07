@@ -1,0 +1,11 @@
+{% extends 'appunti/base.html' %}
+{% block title %} pagine di recenzione {% endblock title %}
+{% block content %}
+<h1>scrivere la recenzione </h1>
+<form action="" method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="send">
+</form>
+
+{% endblock %}
