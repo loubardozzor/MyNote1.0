@@ -3,7 +3,24 @@
     Gli appunti della  materia
 {% endblock title %}
 
+ <!-- #006400 : verde scurro -->
 {% block content %}
+<!-- camino di navigazione -->
+<nav style="font-size: 12px">
+        <ul style="color:#8B0000" class="breadcrumb">
+            {% for passaggio in percorso %}
+                <li style="display: inline-block; padding: 1px 1px">
+                    {% if not forloop.last %}
+                        <a href = {{passaggio.url}}> {{ passaggio.nome }} </a> <strong style="color:black">>></strong>
+
+                    {% else %}
+                        {{ passaggio.nome }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+</nav>
+
   <h1 style="text-align: center; font-size: 80px">{{ materia.nome }}</h1>
   {% if appunti_materia_curr|length == 0 %}
      <h1> non sono ancora stati caricati appunti per questa materia </h1>

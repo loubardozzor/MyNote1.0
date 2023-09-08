@@ -4,6 +4,22 @@ Home page
 {% endblock title %}
 
 {% block content %}
+
+<nav style="font-size: 12px">
+        <ul style="color:#8B0000" class="breadcrumb">
+            {% for passaggio in percorso %}
+                <li style="display: inline-block; padding: 1px 1px">
+                    {% if not forloop.last %}
+                        <a href="{{passaggio.url}}"> {{ passaggio.nome }} </a> <strong style="color:black">>></strong>
+
+                    {% else %}
+                        {{ passaggio.nome }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+</nav>
+
     <h2> {{appunto.nome_appunto}}</h2>
     <ul>
         <li style="font-size: 20px">Autore: {{appunto.studente.nome}} {{appunto.studente.cognome}} </li>

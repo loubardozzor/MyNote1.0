@@ -5,28 +5,33 @@ from .forms import CaricamentoAppuntoForm
 from django.shortcuts import   get_object_or_404
 from django.utils import timezone
 from datetime import datetime
-
-
 from django.shortcuts import redirect  # ajoutez cet import
-
 from django.http import  HttpResponse
 # Create your views here.
-
+from .forms import RecenzioneForm
 """ la views che ritorna la home page"""
+
 def home(request):
     return render(request, 'appunti/home.html')
 
 """ la views che ritorna la lista delle materie"""
 def materie_list(request):
+    percorso = [{'nome': 'Materie Disponibili', 'url': 'materie/'}]
     materie = Materia.objects.all()
-    context = {"materie": materie}
+    context = {"materie": materie, 'percorso': percorso}
     return render(request, 'appunti/materie_list.html', context)
 
 """ la via che ritorna una singola materia con la lista degli appunti essa associata"""
 def materia_detail(request, materia_id):
     materia = Materia.objects.get(id=materia_id)
     appunti_materia_curr = Appunto.objects.filter(materia_id = materia)
-    context = {"materia": materia, "appunti_materia_curr": appunti_materia_curr}
+    url_corrente = "materie/{0}".format(materia_id)
+    elemento_corrente = {"nome": materia.nome, 'url': url_corrente}
+    percorso = [{"nome": "Materie Dispisponibili", "url":"materie/"},]
+
+    percorso.append(elemento_corrente)
+
+    context = {"materia": materia, "appunti_materia_curr": appunti_materia_curr, "percorso": percorso}
     return render(request, 'appunti/materia_detail.html', context)
 
 """ la view che ritorna la pagina di successo caricamento"""
@@ -59,14 +64,33 @@ def upload_appunto(request, materia_id):
         form = CaricamentoAppuntoForm()
 
     materia = Materia.objects.get(id=materia_id)
-    context = {'form':form, 'materia': materia}
+    appunti_materia_curr = Appunto.objects.filter(materia_id=materia)
+    url_corrente = 'materie/{0}'.format(materia_id)
+    materia_elemento = {"nome": materia.nome, 'url': url_corrente}
+    percorso = [{"nome": "Materie Disponibile", 'url': "materie/"}, ]
+    url_appunto_upload = url_corrente+'/upload-appunto'
+    upload_appunto={"nome": 'upload_appunto', 'url':url_appunto_upload}
+    percorso.append(materia_elemento)
+    percorso.append(upload_appunto)
+
+    context = {'form':form, 'materia': materia, "percorso": percorso}
     return render(request, 'appunti/upload_appunto.html', context)
 
 
 def appunto_detail(request, materia_id,appunto_id):
     appunto = Appunto.objects.get(id=appunto_id)
+    materia = Materia.objects.get(id=materia_id)
     recenzioni= Recenzione.objects.filter(appunto_recenzionato = appunto_id)
-    context = {'appunto': appunto, 'recenzioni': recenzioni, 'materia_id': materia_id}
+
+
+    url_materia_curr = 'materie/{0}/'.format(materia_id)
+    materia_elemento = {"nome": materia.nome, 'url': url_materia_curr}
+    percorso = [{"nome": "Materie Disponibile", 'url': "materie/"}, ]
+    percorso.append(materia_elemento)
+    url_appunto_curr = url_materia_curr + '/{0}/'.format(appunto.id)
+    appunto_elemento = {"nome": appunto.nome_appunto, "url": url_appunto_curr}
+    percorso.append(appunto_elemento)
+    context = {'appunto': appunto, 'recenzioni': recenzioni, 'materia_id': materia_id, "percorso": percorso}
     return render(request, 'appunti/appunto_detail.html', context)
 
 def appunto_detail_download(request,materia_id, appunto_id):
@@ -74,14 +98,15 @@ def appunto_detail_download(request,materia_id, appunto_id):
     num_scaricamento = appunto.Num_scaricamento;
     num_scaricamento += 1
     file_path = appunto.pdf_appunto.path # recupero il camino del doc pdf dell'appunto
-    response = FileResponse(open(file_path, 'rb')) # apro il file pdf il modelita lettura binaria
+    response = FileResponse(open(file_path, 'rb')) # apro il file pdf il modalita lettura binaria
     appunto.Num_scaricamento = num_scaricamento
     appunto.save() # per apportare le modifiche abbiamo fatto uno scaricamento
     return response
 
-def appunto_detail_recenzionare(request,materia_id, appunto_id):
 
-    return HttpResponse('<h1> Pagina di recenzione <h1>')
+""" view che ritorna la pagina per recenzionare un appunto"""
+def appunto_detail_recenzionare(request,materia_id, appunto_id):
+    return HttpResponse('<h2>Recenzionare l''appunto<h2>')
 
 
 def appunto_detail_votare(request):

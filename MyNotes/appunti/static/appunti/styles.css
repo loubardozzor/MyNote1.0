@@ -9,7 +9,7 @@ body{
 }
 
 nav{
-    color: #87CEEB
+    color: #006400
 }
 
 a{
@@ -21,6 +21,6 @@ ul{
 }
 
 a:hover{
-    color : blue;
+    color : #006400;
 
 }
