@@ -5,19 +5,6 @@
 
 {% block content %}
 <!-- per vedere il camino di navigazione in alto della pagina -->
-<nav style="font-size: 12px">
-        <ul style="color:#8B0000" class="breadcrumb">
-            {% for passaggio in percorso %}
-                <li style="display: inline-block; padding: 0px 0px">
-                    {% if not forloop.last %}
-                        <a href="{{ passaggio.url }}"> {{ passaggio.nome }} </a>
-                    {% else %}
-                        {{ passaggio.nome }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-</nav>
 
 <h1> Lista delle Materie disponibili per il corso di laurea triennale in Ingegneria informatica </h1>
 <ul>

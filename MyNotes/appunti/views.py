@@ -27,7 +27,7 @@ def materia_detail(request, materia_id):
     appunti_materia_curr = Appunto.objects.filter(materia_id = materia)
     url_corrente = "materie/{0}".format(materia_id)
     elemento_corrente = {"nome": materia.nome, 'url': url_corrente}
-    percorso = [{"nome": "Materie Dispisponibili", "url":"materie/"},]
+    percorso = [{"nome": "Materie Disponibili", "url":"materie/"},]
 
     percorso.append(elemento_corrente)
 

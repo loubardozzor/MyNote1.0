@@ -3,23 +3,10 @@
 Carica il doc pdf del tuo appunto
 {% endblock title %}
 
+
 {% block content %}
 
 <!-- camino di navigazione -->
-<nav style="font-size: 12px">
-        <ul style="color:#8B0000" class="breadcrumb">
-            {% for passaggio in percorso %}
-                <li style="display: inline-block; padding: 1px 1px">
-                    {% if not forloop.last %}
-                        <a href="{{ passaggio.url }}"> {{ passaggio.nome }}  </a> <strong style="color:black">>></strong>
-
-                    {% else %}
-                        {{ passaggio.nome }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-</nav>
 
     <h2> Carica il doc PDF del tuo Appunto </h2>
     <h3> Materia: {{ materia.nome }}</h3>

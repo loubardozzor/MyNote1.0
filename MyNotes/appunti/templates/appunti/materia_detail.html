@@ -3,23 +3,8 @@
     Gli appunti della  materia
 {% endblock title %}
 
- <!-- #006400 : verde scurro -->
-{% block content %}
-<!-- camino di navigazione -->
-<nav style="font-size: 12px">
-        <ul style="color:#8B0000" class="breadcrumb">
-            {% for passaggio in percorso %}
-                <li style="display: inline-block; padding: 1px 1px">
-                    {% if not forloop.last %}
-                        <a href = {{passaggio.url}}> {{ passaggio.nome }} </a> <strong style="color:black">>></strong>
 
-                    {% else %}
-                        {{ passaggio.nome }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-</nav>
+{% block content %}
 
   <h1 style="text-align: center; font-size: 80px">{{ materia.nome }}</h1>
   {% if appunti_materia_curr|length == 0 %}
@@ -27,7 +12,12 @@
   {% else %}
       <ul>
           {% for appunto in appunti_materia_curr %}
-          <li style="font-size: 30px"> <a href="{% url 'appunto-detail' materia.id appunto.id %}"> {{ appunto.nome_appunto }} Di {{appunto.studente.nome}}_{{appunto.studente.cognome}}</a></li>
+          <li style="font-size: 20px">
+              <a href="{% url 'appunto-detail' materia.id appunto.id %}" >{{ appunto.nome_appunto }} Di <span style="color:#585d74; font-size: 15px">{{appunto.studente.nome}}_{{appunto.studente.cognome}}</span></a>
+              <span><a href="#"> <button class="bottone-personalizzato">Cancella</button></a> <a href="#"> <button class="bottone-personalizzato">Modifica</button></a></span>
+
+          </li>
+
           {% endfor %}
       </ul>
   {% endif %}
