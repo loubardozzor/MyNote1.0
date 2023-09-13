@@ -1,0 +1,18 @@
+{% extends 'base_autenticazione.html' %}
+
+
+{% block content %}
+
+    <h2> Fai il Login</h2>
+    <form method="post" action="/register">
+            {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="inserisci lo username..."  required>
+        <br><br>
+
+        <label for="password">Password</label>
+        <input type="password" name="password"  id ="password" placeholder="inserisci la password..." required>
+        <br><br>
+        <button type="submit"> login </button>
+    </form>
+{% endblock %}

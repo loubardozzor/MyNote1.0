@@ -1,0 +1,42 @@
+{% extends 'base_autenticazione.html' %}
+
+
+{% block content %}
+    <h4> Registrati qua </h4>
+    <form method="post" action="/register">
+            {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="inserisci lo username..."  required>
+        <br><br>
+
+        <label for="nome">Nome</label>
+        <input type="text" name="nome"  id ="nome" placeholder="inserisci il nome..." required>
+        <br><br>
+
+        <label for="cognome">Cognome</label>
+        <input type="text" name="cognome" id="cognome" placeholder="inserisci il cognome..." required>
+        <br><br>
+
+        <label for="dataNascita">Data Di Nascita</label>
+        <input type="date" name="dataNascita" id="dataNascita" required>
+        <br><br>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="inserisci L'email" required>
+        <br><br>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="inserisci la password..." required>
+        <br><br>
+
+        <label for="passwordConfirm">Conferma Password</label>
+        <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="confermi la password" required>
+        <br><br>
+        <button type="submit">Registrati</button>
+
+    </form>
+
+{% endblock content %}
+
+
+
