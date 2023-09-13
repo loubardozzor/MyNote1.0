@@ -46,7 +46,7 @@ def lOgin(request):
             nome = user.first_name
             cognome = user.last_name
             context = {"nome": nome, "cognome": cognome}
-            return render(request, 'autenticazione/index.html', context) # torno nella pagina principale per specificare che l'user si è logato disabilitando il bottone di login, registrati e facendo aapparire solo il bottone di lougout
+            return render(request, 'appunti/base.html', context) # torno nella pagina principale per specificare che l'user si è logato disabilitando il bottone di login, registrati e facendo aapparire solo il bottone di lougout
         else:
             messages.error(request, "l'autenticazone è andata a storto")
             return redirect('login')

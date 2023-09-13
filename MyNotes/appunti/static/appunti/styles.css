@@ -8,8 +8,15 @@ body{
     background-color: #D3D3D3;
 }
 
+#benvenuto_user{
+    position: absolute;
+    top: 0;
+    right:0;
+    font-size: 15px ;
+}
+
 nav{
-    color: #006400
+    color: #585d74;
 }
 
 a{
@@ -26,9 +33,9 @@ a:hover{
 }
 
 .bottone-personalizzato {
-    background-color: #357b38;
+    background-color: #585d74;
     border:none;
-    color: white;
+    color: #D3D3D3;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none ;
@@ -39,6 +46,3 @@ a:hover{
     border-radius: 4px;
 }
 
-.bottone-personalizzato:active {
-    background-color: #006400 ;
-}
