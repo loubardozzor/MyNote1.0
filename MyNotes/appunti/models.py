@@ -7,10 +7,10 @@ from django.db import models
 class Studente(models.Model):
     nome=models.CharField(max_length=100)
     cognome=models.CharField(max_length=100)
-    dataNascita=models.DateField()
-    Username = models.CharField(null=True,max_length=255)
-    password=models.CharField(null=True, max_length=255)
-    email = models.EmailField(null=True, max_length=100)
+    dataNascita=models.DateField(null=True, blank=True)
+    Username = models.CharField(max_length=255)
+    password=models.CharField(max_length=255)
+    email = models.EmailField(max_length=100)
     def __str__(self):
         return f"{self.nome} {self.cognome} {self.dataNascita}"
     #class Meta:

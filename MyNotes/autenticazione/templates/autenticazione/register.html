@@ -3,6 +3,9 @@
 
 {% block content %}
     <h4> Registrati qua </h4>
+    {% for message in messages %}
+        <strong> {{ message }} </strong>
+    {% endfor %}
     <form method="post" action="/register">
             {% csrf_token %}
         <label for="username">Username</label>

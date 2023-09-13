@@ -3,8 +3,12 @@
 
 {% block content %}
 
-    <h2> Fai il Login</h2>
-    <form method="post" action="/register">
+    <h4> Fai il Login</h4>
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+
+    <form method="post" action="/login">
             {% csrf_token %}
         <label for="username">Username</label>
         <input type="text" name="username" id="username" placeholder="inserisci lo username..."  required>
