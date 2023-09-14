@@ -4,7 +4,8 @@ from appunti.models import Studente
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
+from MyNotes import settings
+from django.core.mail import send_mail # la funzione che manda in modo automatico una mail
 # Create your views here.
 def acceuil(request):
     return render(request, "autenticazione/index.html")
@@ -48,6 +49,16 @@ def register(request):
         mio_user.last_name = cognome
         mio_user.save() # registrare il nuovo utente come user dell'applicazione
         messages.success(request, 'la creazione del tuo account è andato a buon fine')
+
+        """ quando una persona crea un account l'inviamo direttamento un email di benvenuto"""
+
+        subject = "Benvenuto su MyNotes" # titolo del messaggio di benvenuto
+        message = "Benvenuto "+mio_user.first_name + " " + mio_user.last_name + "\n Siamo felici di averti con noi ! \n\n\n Grazie \n\n MyNotes" #messaggio di benvenuto
+        from_email = settings.EMAIL_HOST_USER # sender dell'email
+        to_list = [mio_user] # receivers dell'email
+        send_mail(subject, message, from_email, to_list, fail_silently=False) # invio dell'email con fail_silently=False mi notifica se è successo qualcosa nell'invio
+
+
         return redirect('login')
     else:
         pass
