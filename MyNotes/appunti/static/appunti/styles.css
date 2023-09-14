@@ -46,3 +46,23 @@ a:hover{
     border-radius: 4px;
 }
 
+
+
+
+.messaggio_lougout {
+  display: none; /* Inizialmente nascondi il messaggio */
+  padding: 10px;
+  background-color: #f0f0f0;
+  color: #333;
+  animation: fade 1s ease-in-out; /* Definisci l'animazione con durata di 1 secondo */
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0; /* Opacità al 0% all'inizio dell'animazione */
+  }
+  100% {
+    opacity: 1; /* Opacità al 100% alla fine dell'animazione */
+  }
+}
+

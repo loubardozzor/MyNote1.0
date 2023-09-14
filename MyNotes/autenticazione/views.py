@@ -19,6 +19,25 @@ def register(request):
         passwordconfirm = request.POST['passwordConfirm']
         username = request.POST['username']
 
+        """ controllo degli input di creazione 
+        dell'account dell'utente lato server
+            """
+        if User.objects.filter(username=username):# se c'è  un account che ha gia chesto nome come user dobbiamo impedire
+            messages.error(request, 'questo username è gia usato in altro account ')
+            return redirect('register')
+        if User.objects.filter(email = email):
+            messages.error(request, 'questo email è gia usato da un altro account')
+            return redirect('register')
+        if password != passwordconfirm:
+            messages.error(request, 'i passwords non coincidono')
+            return redirect('register')
+
+        if not username.isalnum():
+            messages.error(request, 'lo username deve essere alfanumerico')
+            return redirect('register')
+        # quindi l'oggetto messages è accessibile diretamente dai template senza avere bisogno di passarli
+
+
         # nuovo studente che si registra sull'applicazione
         oggetto_con_max_id = Studente.objects.latest('id')
         max_id = oggetto_con_max_id.id
@@ -45,12 +64,16 @@ def lOgin(request):
             login(request, user)
             nome = user.first_name
             cognome = user.last_name
+            messages_benvenuto_utente = "ciao {0} {0} benvenuto su MyNotes".format(nome, cognome)
             context = {"nome": nome, "cognome": cognome}
-            return render(request, 'appunti/base.html', context) # torno nella pagina principale per specificare che l'user si è logato disabilitando il bottone di login, registrati e facendo aapparire solo il bottone di lougout
+            return render(request, 'appunti/home.html', context) # torno nella pagina principale per specificare che l'user si è logato disabilitando il bottone di login, registrati e facendo aapparire solo il bottone di lougout
         else:
             messages.error(request, "l'autenticazone è andata a storto")
             return redirect('login')
     return render(request, 'autenticazione/login.html') # quando l'user si è logato torniamo nell'app principale appunti
 
 def lOgout(request):
+    logout(request)
+    messages.success(request, 'logout andato a buon fine!')
+    return redirect('home')
     pass
