@@ -1,6 +1,6 @@
 {% extends 'appunti/base.html' %}
 {% block title %}
-Carica il doc pdf del tuo appunto
+Carica il doc pdf dei tuoi appunti
 {% endblock title %}
 
 
@@ -8,11 +8,11 @@ Carica il doc pdf del tuo appunto
 
 <!-- camino di navigazione -->
 
-    <h2> Carica il doc PDF del tuo Appunto </h2>
+    <h2> Carica il doc PDF dei tuoi Appunti </h2>
     <h3> Materia: {{ materia.nome }}</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }} <!-- inserimento del modulo nella pagina -->
-        <button type="submit">Carica</button>
+        <button class="bottone-personalizzato" type="submit">Carica</button>
     </form>
 {% endblock content%}

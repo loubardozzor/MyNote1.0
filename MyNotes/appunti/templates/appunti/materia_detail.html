@@ -22,5 +22,7 @@
       </ul>
   {% endif %}
   <p> </p>
-  <p> per caricare un appunto per questa materia clicca qui:<a href="{% url 'upload-appunto' materia.id %}">[Caricare Un Appunto] </a> </p>
+
+  <span style="padding-left: 210px"><a href="#"> <a href = "{% url 'upload-appunto' materia.id %}"> <button style = "background-color: dodgerblue " class="bottone-personalizzato"> Carica Appunti </button> </a></a></span>
+
 {% endblock content%}

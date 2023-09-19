@@ -16,7 +16,7 @@ body{
 }
 
 nav{
-    color: #585d74;
+    color: red;
 }
 
 a{
@@ -49,7 +49,7 @@ a:hover{
 
 
 
-.messaggio_lougout {
+.messaggio_logout {
   display: none; /* Inizialmente nascondi il messaggio */
   padding: 10px;
   background-color: #f0f0f0;

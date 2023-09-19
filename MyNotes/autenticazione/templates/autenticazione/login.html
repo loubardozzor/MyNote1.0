@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h4> Fai il Login</h4>
+    <h4> Fai il Login su MyNotes</h4>
     {% for message in messages %}
         {{ message }}
     {% endfor %}
@@ -17,6 +17,8 @@
         <label for="password">Password</label>
         <input type="password" name="password"  id ="password" placeholder="inserisci la password..." required>
         <br><br>
-        <button type="submit"> login </button>
+        <button class="bottone-personalizzato" type="submit"> login </button>
+        <p> non ti sei ancora registrato? clicca qui : <a href="{% url 'register' %} "> Registrati !</a></p>
     </form>
+
 {% endblock %}

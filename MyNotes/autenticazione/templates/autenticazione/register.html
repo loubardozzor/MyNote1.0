@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <h2> Registrati qua </h2>
+    <h2> Registrati su MyNotes </h2>
     {% for message in messages %}
         <strong> {{ message }} </strong>
     {% endfor %}
@@ -35,8 +35,8 @@
         <label for="passwordConfirm">Conferma Password</label>
         <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="confermi la password" required>
         <br><br>
-        <button type="submit">Registrati</button>
-
+        <button class="bottone-personalizzato"  type="submit">Registrati</button>
+        <p>ti sei gia registrato ? clicca qui: <a href="{% url 'login' %} "> fai il login!</a></p>
     </form>
 
 {% endblock content %}

@@ -23,8 +23,8 @@ Home page
         {% endif %}
 
     </ul>
-    <p> per recenzionare l'appunto clicca qui <a href="#">[recenzioanare]</a></p>
-    <p> per votare l'appunto clicca qui <a href="#">[votare]</a></p>
-    <p> per scaricare l'appunto clicca qui <a href="{% url   'appunto-detail-download' materia_id appunto.id %}">[Download_doc_pdf]</a></p>
+    <span><a href="#"> <button class="bottone-personalizzato"> Recensire</button> </a></span>
+    <span><a href="#"> <button  class="bottone-personalizzato" >Votare </button></a></span>
+    <span> <a href="{% url   'appunto-detail-download' materia_id appunto.id %}"> <button class="bottone-personalizzato">Download_doc_pdf</button></a></span>
 
 {% endblock content%}
