@@ -1,0 +1,20 @@
+{% extends 'appunti/base.html' %}
+{% block title %}
+Carica il doc pdf dei tuoi appunti
+{% endblock title %}
+
+
+{% block content %}
+
+<!-- camino di navigazione -->
+
+<h2> Cancellare degli appunti  </h2>
+<p> sei sicuro di voler cancellare il pdf di : <strong>{{ appunto.nome_appunto }}</strong> ? </p>
+<form action="" method="post">
+    {% csrf_token %}
+    <span><button class="bottone-personalizzato" type="submit">Cancella</button></span>
+
+
+</form>
+
+{% endblock content%}

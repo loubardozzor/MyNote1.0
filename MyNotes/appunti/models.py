@@ -35,11 +35,12 @@ class Appunto(models.Model):
     pdf_appunto = models.FileField(upload_to='pdfs/', null=True, blank=True)
     voto_medio = models.IntegerField(null=True, blank=True)  #attributo derivato
     Num_scaricamento = models.IntegerField() #attributo derivato
-    studente = models.ForeignKey(Studente, null=True, on_delete=models.SET_NULL)
+    studente = models.ForeignKey(Studente, null=True, on_delete=models.CASCADE)
     materia = models.ForeignKey(Materia, null=True, on_delete=models.SET_NULL)
     data_caricamento = models.DateTimeField()
     def __str__(self):
-        return f"{self.nome_appunto} {self.studente.nome} {self.materia}"
+        #return f"{self.nome_appunto} {self.studente.nome} {self.materia}"
+        pass
     class Meta:
         unique_together = ['nome_appunto',  'pdf_appunto']
 

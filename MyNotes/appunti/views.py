@@ -7,6 +7,7 @@ from django.utils import timezone
 from datetime import datetime
 from django.shortcuts import redirect  # ajoutez cet import
 from django.http import  HttpResponse
+from django.contrib.auth.models import User
 # Create your views here.
 from .forms import RecenzioneForm
 """ la views che ritorna la home page"""
@@ -49,32 +50,49 @@ def upload_appunto(request, materia_id):
     if request.method == 'POST': # se la richiesta è post quindi l'utente manda il modulo compilato
         form = CaricamentoAppuntoForm(request.POST, request.FILES)
         if form.is_valid():
-            # salviamo il documento nel database
+            # salviamo il documento nel database con contiene dati sul documento
             data_ora_attuale = timezone.now()
             nome_appunto = form.cleaned_data['nome_appunto']
             pdf_appunto = form.cleaned_data['pdf_appunto']
             oggetto_con_max_id = Appunto.objects.latest('id')
             max_id = oggetto_con_max_id.id
-            nuovo_appunto = Appunto(max_id + 1, nome_appunto, pdf_appunto, 0, 0, 1, materia_id, data_ora_attuale)
+
+            #recuperiamo il riferimento nella tabella studente dell'user corrente che carica il documento
+            username_userCurr = request.user #username dell'utente attualmente autenticato
+            user_curr = Studente.objects.get(Username = username_userCurr)
+
+            nuovo_appunto = Appunto(max_id + 1, nome_appunto, pdf_appunto, 0, 0, user_curr.id, materia_id, data_ora_attuale)
             nuovo_appunto.save()
-            return redirect('pagina_di_successo_caricamento') # ridirezione alla pagina di successo
+            return redirect('materia-detail', materia_id) # ridirezione alla pagina di successo
         else:
             return redirect('pagina_di_incuccesso_caricamento') # ridirezione alla pagina di insuccesso
-    else: # l'utente richiede il modulo per compilare
-        form = CaricamentoAppuntoForm()
+    else: # l'utente richiede il modulo per compilare dobbiamo verificare se l'utente è autenticato
+        if request.user.is_authenticated: # se l'utente è autenticato gli faccio accedere alla pagina di download degli appunti
+            form = CaricamentoAppuntoForm()
+            materia = Materia.objects.get(id=materia_id)
+            appunti_materia_curr = Appunto.objects.filter(materia_id=materia)
+            url_corrente = 'materie/{0}'.format(materia_id)
+            materia_elemento = {"nome": materia.nome, 'url': url_corrente}
+            percorso = [{"nome": "Materie Disponibile", 'url': "materie/"}, ]
+            url_appunto_upload = url_corrente+'/upload-appunto'
+            upload_appunto={"nome": 'upload_appunto', 'url': url_appunto_upload}
+            percorso.append(materia_elemento)
+            percorso.append(upload_appunto)
 
-    materia = Materia.objects.get(id=materia_id)
-    appunti_materia_curr = Appunto.objects.filter(materia_id=materia)
-    url_corrente = 'materie/{0}'.format(materia_id)
-    materia_elemento = {"nome": materia.nome, 'url': url_corrente}
-    percorso = [{"nome": "Materie Disponibile", 'url': "materie/"}, ]
-    url_appunto_upload = url_corrente+'/upload-appunto'
-    upload_appunto={"nome": 'upload_appunto', 'url':url_appunto_upload}
-    percorso.append(materia_elemento)
-    percorso.append(upload_appunto)
+            context = {'form':form, 'materia': materia, "percorso": percorso}
+            return render(request, 'appunti/upload_appunto.html', context)
+        else: # gli mandiamo nella pagina di logi
+            return redirect('login')
 
-    context = {'form':form, 'materia': materia, "percorso": percorso}
-    return render(request, 'appunti/upload_appunto.html', context)
+def delete_appunto(request, materia_id , appunto_id):
+    appunto = Appunto.objects.get(id=appunto_id)
+    if request.method == 'POST':  # se mando il comando per cancellare
+        appunto.delete()
+        return redirect('materia-detail', materia_id)
+    context = {'appunto': appunto}
+    return render(request,
+                  'appunti/delete_appunto.html', context)
+
 
 
 def appunto_detail(request, materia_id,appunto_id):
@@ -104,9 +122,12 @@ def appunto_detail_download(request,materia_id, appunto_id):
     return response
 
 
-""" view che ritorna la pagina per recenzionare un appunto"""
+
+
+
+""" view che ritorna la pagina per recensire un appunto"""
 def appunto_detail_recenzionare(request,materia_id, appunto_id):
-    return HttpResponse('<h2>Recenzionare l''appunto<h2>')
+    return HttpResponse('<h2>Recensire l''appunto<h2>')
 
 
 def appunto_detail_votare(request):

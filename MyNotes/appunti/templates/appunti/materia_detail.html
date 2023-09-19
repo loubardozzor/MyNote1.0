@@ -3,7 +3,6 @@
     Gli appunti della  materia
 {% endblock title %}
 
-
 {% block content %}
 
   <h1 style="text-align: center; font-size: 80px">{{ materia.nome }}</h1>
@@ -13,8 +12,15 @@
       <ul>
           {% for appunto in appunti_materia_curr %}
           <li style="font-size: 20px">
+
               <a href="{% url 'appunto-detail' materia.id appunto.id %}" >{{ appunto.nome_appunto }} Di <span style="color:#585d74; font-size: 15px">{{appunto.studente.nome}}_{{appunto.studente.cognome}}</span></a>
-              <span><a href="#"> <button class="bottone-personalizzato">Cancella</button></a> <a href="#"> <button class="bottone-personalizzato">Modifica</button></a></span>
+              {% if user.is_authenticated %} <!-- se c'è un utente autenticato -->
+                {% if user.username == appunto.studente.Username %} <!-- se l'user è autenticato e gli appunti correnti sono suoi facciamo comparire il bottono di modifica e cancella -->
+                    <span><a href="{% url 'delete-appunto' materia.id appunto.id %}"> <button class="bottone-personalizzato">Cancella</button></a> <a href="#"> <button class="bottone-personalizzato">Modifica</button></a></span>
+                {% endif %}
+              {% endif %}
+
+
 
           </li>
 
