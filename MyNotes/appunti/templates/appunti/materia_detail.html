@@ -16,7 +16,7 @@
               <a href="{% url 'appunto-detail' materia.id appunto.id %}" >{{ appunto.nome_appunto }} Di <span style="color:#585d74; font-size: 15px">{{appunto.studente.nome}}_{{appunto.studente.cognome}}</span></a>
               {% if user.is_authenticated %} <!-- se c'è un utente autenticato -->
                 {% if user.username == appunto.studente.Username %} <!-- se l'user è autenticato e gli appunti correnti sono suoi facciamo comparire il bottono di modifica e cancella -->
-                    <span><a href="{% url 'delete-appunto' materia.id appunto.id %}"> <button class="bottone-personalizzato">Cancella</button></a> <a href="#"> <button class="bottone-personalizzato">Modifica</button></a></span>
+                    <span><a href="{% url 'delete-appunto' materia.id appunto.id %}"> <button class="bottone-personalizzato">Cancella</button></a> <a href="{% url 'update-appunto' materia.id appunto.id %}"> <button class="bottone-personalizzato">Modifica</button></a></span>
                 {% endif %}
               {% endif %}
 

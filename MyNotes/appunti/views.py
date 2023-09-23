@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from appunti.models import *
 from django.http import FileResponse
-from .forms import CaricamentoAppuntoForm
+from .forms import *
 from django.shortcuts import   get_object_or_404
 from django.utils import timezone
 from datetime import datetime
@@ -45,12 +45,14 @@ def pagina_di_insuccesso_caricamento(request):
     return render(request, 'appunti/pagina_di_insuccesso_caricamento.html')
 
 
+
 """ la view che gestisce il caricamento di un appunto """
+
 def upload_appunto(request, materia_id):
     if request.method == 'POST': # se la richiesta è post quindi l'utente manda il modulo compilato
         form = CaricamentoAppuntoForm(request.POST, request.FILES)
         if form.is_valid():
-            # salviamo il documento nel database con contiene dati sul documento
+            # salviamo il documento nel database che contiene dati sul documento
             data_ora_attuale = timezone.now()
             nome_appunto = form.cleaned_data['nome_appunto']
             pdf_appunto = form.cleaned_data['pdf_appunto']
@@ -63,7 +65,7 @@ def upload_appunto(request, materia_id):
 
             nuovo_appunto = Appunto(max_id + 1, nome_appunto, pdf_appunto, 0, 0, user_curr.id, materia_id, data_ora_attuale)
             nuovo_appunto.save()
-            return redirect('materia-detail', materia_id) # ridirezione alla pagina di successo
+            return redirect('materia-detail', materia_id) # ridirezione dgli appunti per la materia corrente
         else:
             return redirect('pagina_di_incuccesso_caricamento') # ridirezione alla pagina di insuccesso
     else: # l'utente richiede il modulo per compilare dobbiamo verificare se l'utente è autenticato
@@ -81,8 +83,9 @@ def upload_appunto(request, materia_id):
 
             context = {'form':form, 'materia': materia, "percorso": percorso}
             return render(request, 'appunti/upload_appunto.html', context)
-        else: # gli mandiamo nella pagina di logi
+        else: # lo mandiamo nella pagina di login
             return redirect('login')
+
 
 def delete_appunto(request, materia_id , appunto_id):
     appunto = Appunto.objects.get(id=appunto_id)
@@ -92,6 +95,77 @@ def delete_appunto(request, materia_id , appunto_id):
     context = {'appunto': appunto}
     return render(request,
                   'appunti/delete_appunto.html', context)
+
+
+def update_appunto(request, materia_id, appunto_id): # implementazione futuro
+    context = {'materia_id': materia_id, 'appunto_id': appunto_id}
+    return render(request, 'appunti/update_appunto.html', context)
+
+
+def update_appunto_name(request, materia_id, appunto_id):
+    if request.method == 'POST': #
+        form = ModificaNomeAppuntoForm(request.POST)
+        if form.is_valid():
+            # salviamo il documento nel database che contiene dati sul documento
+            data_ora_attuale = timezone.now()
+            nuovo_nome_appunto = form.cleaned_data['nome_appunto']
+            # recuperiamo nella database gli appunti di cui dobbiamo modificare il nome
+            appunto = Appunto.objects.get(id=appunto_id)
+            appunto.nome_appunto = nuovo_nome_appunto
+            appunto.save()
+            return redirect('materia-detail', materia_id) # ridirezione dgli appunti per la materia corrente
+        else:
+            return redirect('pagina_di_incuccesso_caricamento') # ridirezione alla pagina di insuccesso
+    else:
+        appunto = Appunto.objects.get(id=appunto_id)
+        form = ModificaNomeAppuntoForm()
+        context = {'form': form, 'appunto': appunto}
+        return render(request, 'appunti/update_appunto_element.html', context)
+
+
+def update_appunto_pdf(request, materia_id, appunto_id):
+    if request.method == 'POST': #
+        form = ModificapdfAppuntoForm(request.POST)
+        if form.is_valid():
+            # salviamo il documento nel database che contiene dati sul documento
+            data_ora_attuale = timezone.now()
+            nuovo_pdf_appunto = form.cleaned_data['pdf_appunto']
+            # recuperiamo nella database gli appunti di cui dobbiamo modificare il nome
+            appunto = Appunto.objects.get(id=appunto_id)
+            appunto.pdf_appunto = nuovo_pdf_appunto
+            appunto.save()
+            return redirect('materia-detail', materia_id) # ridirezione dgli appunti per la materia corrente
+        else:
+            return redirect('pagina_di_incuccesso_caricamento') # ridirezione alla pagina di insuccesso
+    else:
+        appunto = Appunto.objects.get(id=appunto_id)
+        form = ModificapdfAppuntoForm(request.POST)
+        context = {'form': form, 'appunto': appunto}
+        return render(request, 'appunti/update_appunto_element.html', context)
+
+
+
+def update_appunto_namePdf(request, materia_id, appunto_id):
+    if request.method == 'POST': #
+        form = ModificaNomePdfAppuntoForm(request.POST)
+        if form.is_valid():
+            # salviamo il documento nel database che contiene dati sul documento
+            data_ora_attuale = timezone.now()
+            nuovo_pdf_appunto = form.cleaned_data['pdf_appunto']
+            nuovo_nome_appunto = form.cleaned_data['nome_appunto']          # recuperiamo nella database gli appunti di cui dobbiamo modificare il nome
+            appunto = Appunto.objects.get(id=appunto_id)
+            appunto.pdf_appunto = nuovo_pdf_appunto
+            appunto.nome_appunto = nuovo_nome_appunto
+            appunto.save()
+            return redirect('materia-detail', materia_id) # ridirezione dgli appunti per la materia corrente
+        else:
+            return redirect('pagina_di_incuccesso_caricamento') # ridirezione alla pagina di insuccesso
+    else:
+        appunto = Appunto.objects.get(id=appunto_id)
+        form = ModificaNomePdfAppuntoForm(request.POST)
+        context = {'form': form, 'appunto': appunto}
+        return render(request, 'appunti/update_appunto_element.html', context)
+
 
 
 

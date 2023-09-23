@@ -1,0 +1,13 @@
+{% extends 'appunti/base.html' %}
+{% block title %}
+    Update appunti
+{% endblock title %}
+
+{% block content %}
+    <h2> cosa vuoi modificare ?</h2>
+    <span><a href="{% url 'update-appunto-name' materia_id appunto_id %}"> <button class="bottone-personalizzato">Nome</button></a> <a href="{% url 'update-appunto-pdf' materia_id appunto_id %}"> <button class="bottone-personalizzato">Doc_Pdf</button></a>
+    <a href="{% url 'update-appunto-namePdf' materia_id appunto_id %}"> <button class = "bottone-personalizzato"> Nome e Doc_pdf </button></a></span>
+
+
+
+{% endblock content%}

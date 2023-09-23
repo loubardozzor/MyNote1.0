@@ -1,0 +1,30 @@
+{% extends 'appunti/base.html' %}
+{% block title %}
+Carica il doc pdf dei tuoi appunti
+{% endblock title %}
+
+
+{% block content %}
+
+<!-- camino di navigazione -->
+
+
+<form method="post" enctype="multipart/form-data">
+
+    <!--{% if appunto.nome_appunto %}
+        <p> modifica il nome degli appunti di nome è : appunto.nome_appunto</p>
+    {% endif %}
+
+    {% if appunto.pdf_appunto %}
+        <p> modifica il pdf degli appunti di qui nome è : appunto.nome_appunto</p>
+    {% endif %}
+
+    {% if appunto.nome_appunto and appunto.pdf_appunto %}
+        <p> modifica il nome e il pdf degli appunti di nome è : appunto.nome_appunto</p>
+    {% endif %}  -->
+
+    {% csrf_token %}
+    {{ form.as_p }} <!-- inserimento del modulo nella pagina -->
+    <button class="bottone-personalizzato" type="submit">Modifica</button>
+</form>
+{% endblock content%}

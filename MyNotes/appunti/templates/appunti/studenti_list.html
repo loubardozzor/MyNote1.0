@@ -1,0 +1,18 @@
+{% extends 'appunti/base.html' %}
+{% block title %}
+Lista delle Materie
+{% endblock title %}
+
+{% block content %}
+<!-- per vedere il camino di navigazione in alto della pagina -->
+
+<h1> Lista Degli studenti per visualizzare appunti per studenti</h1>
+<ul>
+    {% for studente in studenti %}
+    <li>
+        <a href = "{% url 'studente-detail' studente.id %}">{{studente.nome}} {{ studente.cognome }} </a>
+    </li>
+    <br>
+    {% endfor %}
+</ul>
+{% endblock content %}

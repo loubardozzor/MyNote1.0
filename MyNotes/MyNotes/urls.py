@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-from appunti import views
+from appunti import views, studenti_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.home, name='home'),
@@ -28,11 +28,18 @@ urlpatterns = [
     path('materie/', views.materie_list, name='materie-list'),
     path('materie/<int:materia_id>/', views.materia_detail, name='materia-detail'),
     path('materie/<int:materia_id>/upload-appunto', views.upload_appunto, name='upload-appunto'),
+    path('materie/<int:materia_id>/<int:appunto_id>/update-appunto', views.update_appunto, name= 'update-appunto'),
+    path('materia/<int:materia_id>/<int:appunto_id>/update-appunto/update-appunto-name', views.update_appunto_name, name = 'update-appunto-name'),
+    path('materia/<int:materia_id>/<int:appunto_id>/update-appunto/update-appunto-pdf',views.update_appunto_pdf, name = 'update-appunto-pdf'),
+    path('materia/<int:materia_id>/<int:appunto_id>/update-appunto/update-appuntoNamePdf', views.update_appunto_namePdf, name = 'update-appunto-namePdf'),
     path('materia/<int:materia_id>/<int:appunto_id>', views.delete_appunto, name='delete-appunto'),
     path('materia/<int:materia_id>/<int:appunto_id>/', views.appunto_detail, name='appunto-detail'),
     path('materia/<int:materia_id>/<int:appunto_id>/download/', views.appunto_detail_download, name='appunto-detail-download' ),
     path('materia/<int:materia_id>/<int:appunto_id>/recenzionare', views.appunto_detail_recenzionare, name='appunto-detail-recenzionare'),
     path('materia/<int:materia_id>/<int:appunto_id>/votare', views.appunto_detail_votare, name='appunto-detail-votare'),
+
+    path('studenti/', studenti_views.studenti_list, name = 'studenti-list'),
+    path('studenti/<int:studenti_id>/', studenti_views.studente_detail, name='studente-detail'),
     path('', include('autenticazione.urls'))
 
 
